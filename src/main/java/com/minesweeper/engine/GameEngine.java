@@ -51,7 +51,9 @@ public class GameEngine {
         }
 
         // check for win
-        gameCompletionChecker.checkWin(game);
+        if (gameCompletionChecker.checkWin(game)) {
+            game.setState(GameState.WON);
+        }
     }
 
     public void toggleFlag(int row, int col) {
