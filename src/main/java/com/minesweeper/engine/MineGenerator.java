@@ -2,6 +2,8 @@ package com.minesweeper.engine;
 
 import com.minesweeper.model.Board;
 import com.minesweeper.model.Cell;
+import com.minesweeper.util.BoardUtils;
+import com.minesweeper.util.BoardUtils.CellPosition;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,40 +43,20 @@ public class MineGenerator {
             for (int col = 0; col < board.getCols(); col++) {
                 Cell cell = board.getCell(row, col);
 
-                if (!cell.isMine()) {
-                    cell.setAdjacentMines(countAdjacentMines(board, row, col));
-                }
-            }
-        }
-    }
-
-    private int countAdjacentMines(Board board, int row, int col) {
-        int mineCount = 0;
-
-        for (int rowOffset = -1;  rowOffset <= 1; rowOffset++) {
-            for (int colOffset = -1;  colOffset <= 1; colOffset++) {
-                // skip the cell itself
-                if (rowOffset == 0 && colOffset == 0) {
+                if (cell.isMine()) {
                     continue;
                 }
 
-                int neighbourRow = row + rowOffset;
-                int neighbourCol = col + colOffset;
+                int adjacentMines = 0;
 
-                if (isInsideBoard(board,  neighbourRow, neighbourCol)) {
-                    if (board.getCell(neighbourRow, neighbourCol).isMine()) {
-                        mineCount++;
+                for (Cell neighbour : BoardUtils.getNeighbourCells(board, row, col)) {
+                    if (neighbour.isMine()) {
+                        adjacentMines++;
                     }
                 }
+
+                cell.setAdjacentMines(adjacentMines);
             }
         }
-
-        return mineCount;
     }
-
-    private boolean isInsideBoard(Board board, int row, int column) {
-       return row >= 0 && row < board.getRows() && column >= 0 && column < board.getCols();
-    }
-
-    private record CellPosition(int row, int col) {}
 }
