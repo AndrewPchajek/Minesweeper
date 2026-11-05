@@ -53,6 +53,7 @@ public class CellView extends StackPane {
     }
 
     private void showHiddenCell(Cell cell) {
+        content.setText("");
        setStyle("-fx-background-color: #a0aec0;" + "-fx-border-color: #718096;" + "-fx-border-width: 1;");
     }
 }
