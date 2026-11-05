@@ -39,9 +39,9 @@ public class GameEngine {
         if (game.getState() == GameState.READY) {
             mineGenerator.generateMines(board, row, col);
             game.setState(GameState.RUNNING);
-        } else {
-            boardRevealer.revealCell(board, row, col);
         }
+
+        boardRevealer.revealCell(board, row, col);
 
         // check for loss
         Cell cell = board.getCell(row, col);
