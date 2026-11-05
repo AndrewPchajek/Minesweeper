@@ -6,7 +6,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 
 public class GameView extends BorderPane {
     private final GameEngine gameEngine;
@@ -15,7 +14,7 @@ public class GameView extends BorderPane {
         this.gameEngine = gameEngine;
         setPadding(new Insets(20));
         setTop(createHeader());
-        setCenter(createBoardPlaceholder());
+        setCenter(new BoardView(gameEngine));
         setBottom(createFooter());
     }
 
@@ -24,13 +23,6 @@ public class GameView extends BorderPane {
         header.setAlignment(Pos.CENTER);
         header.setPadding(new Insets(10));
         return header;
-    }
-
-    private StackPane createBoardPlaceholder() {
-        StackPane container = new StackPane(new Label("Game Board"));
-        container.setAlignment(Pos.CENTER);
-        container.setPadding(new Insets(10));
-        return container;
     }
 
     private HBox createFooter() {
