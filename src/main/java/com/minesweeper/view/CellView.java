@@ -31,7 +31,7 @@ public class CellView extends StackPane {
         } else if (cell.isFlagged()) {
             showFlaggedCell();
         } else {
-            showHiddenCell(cell);
+            showHiddenCell();
         }
     }
 
@@ -52,7 +52,7 @@ public class CellView extends StackPane {
         setStyle("-fx-background-color: #a0aec0;" + "-fx-border-color: #718096;" + "-fx-border-width: 1;");
     }
 
-    private void showHiddenCell(Cell cell) {
+    private void showHiddenCell() {
         content.setText("");
        setStyle("-fx-background-color: #a0aec0;" + "-fx-border-color: #718096;" + "-fx-border-width: 1;");
     }
