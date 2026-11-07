@@ -1,6 +1,8 @@
 package com.minesweeper.view;
 
 import com.minesweeper.model.Cell;
+import com.minesweeper.model.Game;
+import com.minesweeper.model.GameState;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
@@ -8,11 +10,17 @@ import javafx.scene.layout.StackPane;
 public class CellView extends StackPane {
     private static final int CELL_SIZE = 32;
 
+    private final Game game;
     private final Cell cell;
+    private final int row;
+    private final int col;
     private final Label content;
 
-    public CellView(Cell cell) {
-       this.cell = cell;
+    public CellView(Game game, int row, int col) {
+       this.game = game;
+       this.cell = game.getBoard().getCell(row, col);
+       this.row = row;
+       this.col = col;
        this.content = new Label("");
 
        setAlignment(Pos.CENTER);
@@ -26,12 +34,24 @@ public class CellView extends StackPane {
     }
 
     public void refresh() {
-        if (cell.isRevealed()) {
+        if (game.getState() == GameState.LOST && cell.isMine()){
+            showMine();
+        } else if (cell.isRevealed()) {
             showRevealedCell();
         } else if (cell.isFlagged()) {
             showFlaggedCell();
         } else {
             showHiddenCell();
+        }
+    }
+
+    private void showMine() {
+        content.setText("M");
+
+        if (game.isExplodedCell(row, col)) {
+            setStyle("-fx-background-color: #ef4444;" + "-fx-border-color: #b91c1c;" + "-fx-border-width: 1;");
+        } else {
+            setStyle("-fx-background-color: #fecaca;" + "-fx-border-color: #f87171;" + "-fx-border-width: 1;");
         }
     }
 

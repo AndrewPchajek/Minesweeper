@@ -46,6 +46,7 @@ public class GameEngine {
         // check for loss
         Cell cell = board.getCell(row, col);
         if (cell.isMine() && cell.isRevealed()) {
+            game.setExplodedCell(row, col);
             game.setState(GameState.LOST);
             return;
         }

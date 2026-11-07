@@ -25,7 +25,7 @@ public class BoardView extends GridPane{
 
         for (int row = 0; row < board.getRows(); row++) {
             for (int col = 0; col < board.getCols(); col++) {
-                CellView cellView = new CellView(board.getCell(row, col));
+                CellView cellView = new CellView(gameEngine.getGame(), row, col);
 
                 final int cellRow = row;
                 final int cellCol = col;
