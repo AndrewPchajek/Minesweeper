@@ -12,7 +12,10 @@ public class MinesweeperApplication extends Application {
     public void start(Stage stage) {
         GameEngine gameEngine = new GameEngine(GameDifficulty.BEGINNER);
         GameView gameView = new GameView(gameEngine);
-        Scene scene = new Scene(gameView, 800, 800);
+        Scene scene = new Scene(gameView);
+
+        stage.setMinWidth(400);
+        stage.setMinHeight(400);
 
         stage.setTitle("Minesweeper");
         stage.setScene(scene);

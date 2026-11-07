@@ -68,6 +68,21 @@ public class GameEngine {
         flagManager.toggleFlag(board, row, col);
     }
 
+    public int getRemainingMines() {
+        Board board = game.getBoard();
+        int flagCount = 0;
+
+        for (int row = 0; row < board.getRows(); row++) {
+            for (int col = 0; col < board.getCols(); col++) {
+                if (board.getCell(row, col).isFlagged()) {
+                    flagCount++;
+                }
+            }
+        }
+
+        return board.getMineCount() - flagCount;
+    }
+
     public void resetGame(GameDifficulty difficulty) {
         this.game = new Game(difficulty);
     }

@@ -9,9 +9,11 @@ import com.minesweeper.engine.GameEngine;
 
 public class BoardView extends GridPane{
     private final GameEngine gameEngine;
+    private final Runnable onGameUpdated;
 
-    public BoardView(GameEngine gameEngine) {
+    public BoardView(GameEngine gameEngine, Runnable onGameUpdated) {
         this.gameEngine = gameEngine;
+        this.onGameUpdated = onGameUpdated;
 
         setAlignment(Pos.CENTER);
         setHgap(2);
@@ -35,9 +37,12 @@ public class BoardView extends GridPane{
                         gameEngine.revealCell(cellRow, cellCol);
                     } else if (event.getButton() == MouseButton.SECONDARY) {
                         gameEngine.toggleFlag(cellRow, cellCol);
+                    } else {
+                        return;
                     }
 
                     refreshBoard();
+                    onGameUpdated.run();
                 });
 
                 add(cellView, col, row);
